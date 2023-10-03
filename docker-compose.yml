@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  ts-node-docker:
+  music-stats:
     build:
       context: .
       dockerfile: Dockerfile
