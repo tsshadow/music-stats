@@ -15,7 +15,9 @@ export async function getLabels() {
     let conn;
     try {
         conn = await pool.getConnection();
-        return await conn.query("SELECT * from labels;");
+        const result = await conn.query("SELECT * from labels;");
+        conn.release();
+        return result;
     } catch (err) {
         throw err;
     }
@@ -25,7 +27,9 @@ export async function getEps() {
     let conn;
     try {
         conn = await pool.getConnection();
-        return await conn.query("SELECT * from eps;");
+        const result = await conn.query("SELECT * from eps;");
+        conn.release();
+        return result;
     } catch (err) {
         throw err;
     }
