@@ -10,8 +10,8 @@
 </header>
 
 <main>
+    <canvas id="doughnut_chart" style="width:400px;"></canvas>
     <div class="jumbotron">
-
         <ul>
             <% labels.forEach(function(label) { %>
                 <li>
@@ -28,4 +28,22 @@
 </footer>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    Chart.overrides.doughnut.plugins.legend.display = false
+    var ctx = document.getElementById("doughnut_chart");
+    var labelChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {datasets: [{data: [<%- chartData %>]}], labels: [<%- chartLabel %>]},
+        options: {
+            //cutoutPercentage: 40,
+            responsive: true,
+            legend: {
+                display: false
+            },
+        }
+    });
+
+</script>
 </html>
