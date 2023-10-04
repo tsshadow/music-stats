@@ -42,6 +42,15 @@
             legend: {
                 display: false
             },
+            onClick: (e, activeEls) =>{
+                let datasetIndex = activeEls[0].datasetIndex;
+                let dataIndex = activeEls[0].index;
+                let value = e.chart.data.datasets[datasetIndex].data[dataIndex];
+                let label = e.chart.data.labels[dataIndex];
+                console.log("In click", label, value);
+                window.location.href = `eps?label=${label}`;
+
+            },
         }
     });
 

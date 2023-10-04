@@ -28,9 +28,9 @@ app.get('/', async (req: Request, res: Response) => {
         chartLabel:chartLabel,
     });
 });
-app.get('/eps', async (req: Request, res: Response) => {
 
-    const eps = await getEps();
+app.get('/eps', async (req: Request, res: Response) => {
+    const eps = await getEps(<string>req.query.label);
 
     res.render(path.join(__dirname + '/views/pages/eps.ejs'), {
         eps: eps,

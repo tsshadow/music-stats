@@ -23,11 +23,11 @@ export async function getLabels() {
     }
 }
 
-export async function getEps() {
+export async function getEps(label: string) {
     let conn;
     try {
         conn = await pool.getConnection();
-        const result = await conn.query("SELECT * from eps;");
+        const result = await conn.query(`SELECT * from eps WHERE label ='${label}';`);
         conn.release();
         return result;
     } catch (err) {
