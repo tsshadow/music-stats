@@ -12,14 +12,33 @@
 <main>
     <div class="jumbotron">
 
-        <ul>
+        <table>
+            <tr>
+                <th>
+                    "Label"
+                </th>
+                <th>
+                    "CAT ID"
+                </th>
+                <th>
+                    "Path"
+                </th>
+            </tr>
             <% eps.forEach(function(ep) { %>
-                <li>
-                    <strong><%= ep.label %></strong>
+            <tr>
+                <td>
+                    <%= ep.label %>
+                </td>
+                <td>
                     <%= ep.catid %>
-                </li>
-            <% }); %>
-        </ul>
+                </td>
+
+                <td>
+                    <%= ep.path %>
+                </td>
+                <% }); %>
+            </tr>
+        </table>
     </div>
 </main>
 

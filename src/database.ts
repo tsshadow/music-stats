@@ -27,7 +27,7 @@ export async function getEps(label: string) {
     let conn;
     try {
         conn = await pool.getConnection();
-        const result = await conn.query(`SELECT * from eps WHERE label ='${label}';`);
+        const result = await conn.query(`SELECT * from eps WHERE label ='${label}' ORDER BY eps.catid ASC;`);
         conn.release();
         return result;
     } catch (err) {
