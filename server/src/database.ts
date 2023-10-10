@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import {mockEps, mockLabels} from "./database_mock";
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const pool = database.createPool({
 });
 
 export async function getLabels() {
+    if (process.env.MOCK === 'TRUE') return mockLabels;
     let conn;
     try {
         conn = await pool.getConnection();
@@ -24,6 +26,7 @@ export async function getLabels() {
 }
 
 export async function getEps(label: string) {
+    if (process.env.MOCK === 'TRUE') return mockEps;
     let conn;
     try {
         conn = await pool.getConnection();
