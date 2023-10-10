@@ -70,7 +70,7 @@ function LabelChart() {
     }, []);
 
     return (
-        <div className="LAbelChart">
+        <div className="LabelChart">
             {chartData?.datasets &&
                 <Doughnut
                 ref={chartRef}
