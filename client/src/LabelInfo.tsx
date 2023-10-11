@@ -19,9 +19,9 @@ function LabelInfo({label}: Props) {
     }, [label]);
     return (
         <div className="LabelInfo">
-            {labelInfo?.name}
-            {labelInfo?.eps}
-            {labelInfo?.mood}
+            {labelInfo?.name\n}<br
+            {labelInfo?.eps\n}
+            {labelInfo?.mood\n}
         </div>
     );
 
