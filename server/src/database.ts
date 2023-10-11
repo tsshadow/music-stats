@@ -12,12 +12,25 @@ const pool = database.createPool({
     connectionLimit: 5
 });
 
-export async function getLabels() {
-    if (process.env.MOCK === 'TRUE') return mockLabels;
+function getLabelsSimulation(label: string)
+{
+    return label? mockLabels.find((element) => element.name === label): mockLabels;
+}
+export async function getLabels(label: string) {
+    if (process.env.MOCK === 'TRUE')
+        return getLabelsSimulation(label);
     let conn;
     try {
         conn = await pool.getConnection();
-        const result = await conn.query("SELECT * from labels;");
+        let result;
+        if (label)
+        {
+            result = await conn.query("SELECT * from labels where label is "+label+";");
+        }
+        else
+        {
+            result = await conn.query("SELECT * from labels;");
+        }
         conn.release();
         return result;
     } catch (err) {

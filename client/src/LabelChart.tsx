@@ -1,11 +1,15 @@
 import React, {useRef, useState} from "react";
 import "./LabelChart.css";
-import {Chart as ChartJS, ArcElement, Tooltip, Legend, Chart} from "chart.js";
+import {ArcElement, Chart as ChartJS, Chart, Legend, Tooltip} from "chart.js";
 import {Doughnut, getElementAtEvent} from "react-chartjs-2";
 
-function LabelChart() {
+interface Props {
+    onSelectLabel: (label: string) => void;
+}
+
+function LabelChart({onSelectLabel}: Props) {
+    const chartRef = useRef();
     const [chartData, setChartData]: any = useState();
-    const [label, setLabel] = useState();
     const options = {
         plugins: {
             legend: {
@@ -14,14 +18,12 @@ function LabelChart() {
         },
     };
 
-    const chartRef = useRef();
 
     const onClick = (event: any) => {
-        const cur = chartRef.current as any as Chart;
-        console.log(cur);
-        let l = chartData.labels[getElementAtEvent(cur, event)[0].index];
-        console.log(l);
-        setLabel(l)
+        const element = getElementAtEvent(chartRef.current as any as Chart, event)[0];
+        if (element) {
+            onSelectLabel(chartData.labels[element.index]);
+        }
     }
 
     ChartJS.register(ArcElement, Tooltip, Legend);
@@ -30,7 +32,6 @@ function LabelChart() {
             .then((res) => res.json())
             .then((d) => {
                 if (d) {
-                    console.log(d);
                     const data: any = {
                         datasets: [{
                             data: d.map((dat: any) => dat.eps),
@@ -73,10 +74,10 @@ function LabelChart() {
         <div className="LabelChart">
             {chartData?.datasets &&
                 <Doughnut
-                ref={chartRef}
-                data={chartData}
-                options={options}
-                onClick={onClick}/>}
+                    ref={chartRef}
+                    data={chartData}
+                    options={options}
+                    onClick={onClick}/>}
         </div>
     );
 

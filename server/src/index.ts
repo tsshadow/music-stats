@@ -19,8 +19,9 @@ class Ep {
 const app: Express = express();
 const port = process.env.PORT;
 
-app.get('/labels', async (req: Request, res: Response) => {
-    const labels = await getLabels();
+app.get('/labels/', async (req: Request, res: Response) => {
+    console.log(req);
+    const labels = await getLabels(<string>req.query.label);
     res.json(labels);
 });
 

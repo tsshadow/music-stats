@@ -1,21 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import LabelChart from "./LabelChart";
 import LabelInfo from "./LabelInfo";
 import {Label} from "./constants";
 
 function App() {
 
-    const label: Label = {
-        eps: 10, genres: "genre", mood: "mood", name: "name"
+    const [label, setLabel]: any = useState("");
+
+    const handleSelectLabel = (item: string) => {
+        setLabel(item);
     }
+
     return (
         <div className="App">
-            <LabelChart />
+            <LabelChart onSelectLabel={handleSelectLabel}/>
             <LabelInfo
-                name={label.name}
-                eps={label.eps}
-                genres={label.genres}
-                mood={label.mood}
+                label={label}
             />
         </div>
     );
