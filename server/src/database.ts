@@ -25,7 +25,11 @@ export async function getLabels(label: string) {
         let result;
         if (label)
         {
-            result = await conn.query("SELECT * from labels where label is "+label+";");
+            result = await conn.query(`SELECT * from labels where name = \'${label}\';`);
+            if (result.length > 0)
+            {
+                result = result[0];
+            }
         }
         else
         {
