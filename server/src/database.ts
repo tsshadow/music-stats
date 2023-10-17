@@ -33,7 +33,13 @@ export async function getLabels(label: string) {
         }
         else
         {
-            result = await conn.query("SELECT * from labels;");
+            const query = 'SELECT count(*), labels.name FROM `eps` JOIN labels ON label_id = labels.id GROUP BY label_id;'
+            result = await conn.query(query);
+            result.forEach((res: any) => {
+                res.eps = Number(res['count(*)'])
+                delete res['count(*)'];
+            });
+            console.log(result);
         }
         conn.release();
         return result;
