@@ -1,4 +1,5 @@
 import {Label} from "./constants";
+import Card from 'react-bootstrap/Card';
 import React, {useState} from "react";
 
 interface Props {
@@ -19,17 +20,20 @@ function LabelInfo({label}: Props) {
             }).catch((err) => console.log(err));
     }, [label]);
     return (
-        <div  className="LabelInfo">
-            <div>
+        <Card>
+            <Card.Title>
                 {labelInfo?.name}
-            </div>
-            <div>
-                {labelInfo?.eps}
-            </div>
-            <div>
-                {labelInfo?.mood}
-            </div>
-        </div>
+            </Card.Title>
+            <Card.Body>
+                {labelInfo?.eps ? `Eps:${labelInfo.eps}` : ''}
+            </Card.Body>
+            <Card.Body>
+                {labelInfo?.songs ? `Songs:${labelInfo.songs}` : ''}
+            </Card.Body>
+            <Card.Body>
+                {labelInfo?.mood ? `Mood(s):${labelInfo.mood}` : ''}
+            </Card.Body>
+        </Card>
     );
 
 }

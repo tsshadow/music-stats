@@ -17,27 +17,35 @@ function getLabelsSimulation(label: string)
     return label? mockLabels.find((element) => element.name === label): mockLabels;
 }
 export async function getLabels(label: string) {
-    if (process.env.MOCK === 'TRUE')
+    if (process.env.MOCK === 'TRUE') {
+        console.log('Mock is true: ');
         return getLabelsSimulation(label);
+    }
     let conn;
     try {
         conn = await pool.getConnection();
         let result;
         if (label)
         {
-            result = await conn.query(`SELECT * from labels where name = \'${label}\';`);
-            if (result.length > 0)
-            {
-                result = result[0];
-            }
+            const query = `SELECT labels.name, count(*) as 'songs', count(DISTINCT eps.path) as 'eps' FROM \`songs\`
+                          JOIN \`labels\` ON songs.label_id = labels.id
+                          JOIN \`eps\` on songs.ep_id = eps.id
+                          WHERE labels.name ='${label}' 
+                          GROUP BY songs.label_id LIMIT 1;`;
+            result = await conn.query(query);
+            result = { songs: Number(result[0]['songs']), eps: Number(result[0]['eps']), name: result[0]['name']};
+            console.log(result);
         }
         else
         {
-            const query = 'SELECT count(*), labels.name FROM `eps` JOIN labels ON label_id = labels.id GROUP BY label_id;'
+            const query = `SELECT labels.name, count(*) as 'songs', count(DISTINCT eps.path) as 'eps' FROM \`songs\`
+                          JOIN \`labels\` ON songs.label_id = labels.id
+                          JOIN \`eps\` on songs.ep_id = eps.id 
+                          GROUP BY songs.label_id`;
             result = await conn.query(query);
             result.forEach((res: any) => {
-                res.eps = Number(res['count(*)'])
-                delete res['count(*)'];
+                res.eps = Number(res['eps'])
+                res.songs = Number(res['songs'])
             });
             console.log(result);
         }

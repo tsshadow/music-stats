@@ -24,7 +24,6 @@ app.get('/', async (req: Request, res: Response) => {
 });
 
 app.get('/labels', async (req: Request, res: Response) => {
-    console.log(req);
     const labels = await getLabels(<string>req.query.label);
     res.json(labels);
 });

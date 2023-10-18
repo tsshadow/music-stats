@@ -39,7 +39,8 @@ export const mockLabels =
         },
         {
             "name": "Dirty workz",
-            "eps": 2576
+            "eps": 2576,
+            "songs": 3500
         },
         {
             "name": "End of line",
