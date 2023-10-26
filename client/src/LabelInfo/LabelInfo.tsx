@@ -1,7 +1,6 @@
-import {Label} from "./constants";
 import Card from 'react-bootstrap/Card';
 import React, {useState} from "react";
-import Badge from "react-bootstrap/Badge";
+import Pill from "./Pill/Pill";
 
 interface Props {
     label: string
@@ -32,10 +31,10 @@ function LabelInfo({label}: Props) {
                 {labelInfo?.songs ? `Songs:${labelInfo.songs}` : ''}
             </Card.Body>
             <div style={{display: 'inline'}}>
-            {labelInfo?.mood?.map((moodItem: any) => (
-                    <Badge pill bg="primary" style={{display: 'inline'}}>{moodItem.mood}:{moodItem.count}</Badge>
-                )
-            )}</div>
+                {labelInfo?.mood?.map((moodItem: any) => (
+                        <Pill mood={moodItem.mood}  count={moodItem.count}/>
+                    )
+                )}</div>
         </Card>
     );
 

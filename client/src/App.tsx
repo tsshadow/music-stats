@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import LabelChart from "./LabelChart";
-import LabelInfo from "./LabelInfo";
+import LabelInfo from "./LabelInfo/LabelInfo";
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 function App() {
